@@ -1,0 +1,30 @@
+{
+  "name": "primeshop-app",
+  "version": "1.0.0",
+  "description": "E-Commerce application built with MERN stack",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "npm backend/server.js",
+    "install-server": "npm install --prefix backend",
+    "install-client": "npm install --prefix frontend",
+    "install": "npm run install-server && npm run install-client",
+    "server": "npm run watch --prefix backend",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-simple": "npm run server & npm run client",
+    "build": "npm install && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ignatovw99/PrimeShop.git"
+  },
+  "author": "Lyuboslav Ignatov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ignatovw99/PrimeShop/issues"
+  },
+  "homepage": "https://github.com/Ignatovw99/PrimeShop#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
