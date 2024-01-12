@@ -1,0 +1,25 @@
+{
+  "name": "primeshop-backend",
+  "version": "1.0.0",
+  "description": "PrimeShop - ECommerce application Backend",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon -r dotenv/config server.js",
+    "data:import": "node -r dotenv/config seeder.js",
+    "data:destroy": "node -r dotenv/config seeder.js --destroy",
+    "cluster": "pm2 start src/server.js -i max"
+  },
+  "author": "Lyuboslav Ignatov",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.2"
+  }
+}
