@@ -1,23 +1,29 @@
-import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 
-import axios from "axios";
-
 import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import AlertMessage from "../components/AlertMessage";
+
+import { useGetProductDetailsQuery } from "../slices/api/productApiSlice";
+
+import { PRODUCT_IN_STOCK, PRODUCT_OUT_OF_STOCK } from "../constants";
 
 const ProductPage = () => {
     const { id: productId } = useParams();
-    const [product, setProduct] = useState({});
+    const { data: product, isFetching, error } = useGetProductDetailsQuery(productId);
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const { data } = await axios.get(`/api/products/${productId}`);
-            setProduct(data);
-        };
+    if (error) {
+        return (
+            <AlertMessage variant="danger">
+                {error.data?.message}
+            </AlertMessage>
+        );
+    }
 
-        fetchProduct();
-    }, [productId]);
+    if (isFetching) {
+        return <Loader />;
+    }
 
     return (
         <>
@@ -75,18 +81,12 @@ const ProductPage = () => {
                                 <Row>
                                     <Col>Status:</Col>
                                     <Col>
-                                        {product.availableQuantity > 0 ? "In Stock" : "Out Of Stock"}
+                                        {product.availableQuantity > 0 ?
+                                            PRODUCT_IN_STOCK :
+                                            PRODUCT_OUT_OF_STOCK
+                                        }
                                     </Col>
                                 </Row>
-                            </ListGroup.Item>
-
-                            <ListGroup.Item>
-                                <Button
-                                    className="btn-block"
-                                    disabled={product.availableQuantity === 0}
-                                >
-                                    Add to Cart
-                                </Button>
                             </ListGroup.Item>
                         </ListGroup>
                     </Card>
