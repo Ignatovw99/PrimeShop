@@ -1,8 +1,13 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Navbar, Nav, Container, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 
+import { getShoppingCartItemsQuantity } from "../utils/shoppingCartUtils";
+
 const Header = () => {
+    const { items: cartItems } = useSelector(state => state.shoppingCart);
+
     return (
         <header>
             <Navbar
@@ -18,9 +23,14 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            <LinkContainer to="/cart">
+                            <LinkContainer to="/shopping-cart">
                                 <Nav.Link>
-                                    <FaShoppingCart /> Cart
+                                    <FaShoppingCart /> Shopping Cart
+                                    {cartItems.length > 0 &&
+                                        <Badge pill bg="success" className="cart-badge-header">
+                                            {getShoppingCartItemsQuantity(cartItems)}
+                                        </Badge>
+                                    }
                                 </Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/login">
