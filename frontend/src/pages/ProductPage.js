@@ -4,6 +4,7 @@ import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
+import AddToCart from "../components/AddToCart";
 
 import { useGetProductDetailsQuery } from "../slices/api/productApiSlice";
 
@@ -88,6 +89,8 @@ const ProductPage = () => {
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
+
+                            <AddToCart product={product} />
                         </ListGroup>
                     </Card>
                 </Col>
