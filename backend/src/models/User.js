@@ -36,6 +36,23 @@ userSchema.pre("save", async function (next) {
     }
 });
 
+userSchema.methods.matchPassword = async function (password) {
+    return await bcrypt.compare(String(password), this.password);
+};
+
 const User = mongoose.model("User", userSchema);
+
+export const convertToDomainObject = (user) => {
+    if (!user) {
+        return null;
+    }
+    const { _id, email, name } = user;
+
+    return {
+        id: _id,
+        email,
+        name
+    };
+};
 
 export default User;
