@@ -10,7 +10,7 @@ export default {
         secret: process.env.JWT_SECRET,
         accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h"
     },
-    environemnt: {
+    environment: {
         isProduction: process.env.NODE_ENV === "production",
         isDevelopment: process.env.NODE_ENV === "development"
     }
