@@ -10,6 +10,12 @@ const findByCredentials = async (email, password) => {
     return convertToDomainObject(userDocument);
 };
 
+const findById = async (id) => {
+    const user = await User.findById(id);
+    return convertToDomainObject(user);
+};
+
 export default {
     findByCredentials,
+    findById
 };
