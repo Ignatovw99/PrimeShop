@@ -49,7 +49,7 @@ export const convertToDomainObject = (user) => {
     const { _id, email, name } = user;
 
     return {
-        id: _id,
+        id: _id.toString(),
         email,
         name
     };
