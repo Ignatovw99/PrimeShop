@@ -59,3 +59,15 @@ export class ForbiddenError extends Error {
         throw new ForbiddenError(message);
     }
 }
+
+export class InvalidDataError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+    }
+
+    static throwError(messageTemplate, replacements) {
+        const message = replacePlaceholders(messageTemplate, replacements);
+        throw new InvalidDataError(message);
+    }
+}
