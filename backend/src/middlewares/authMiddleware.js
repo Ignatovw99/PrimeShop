@@ -9,7 +9,7 @@ import { UNAUTHORIZED, ACCESS_DENIED } from "../messages.js";
 
 export const authenticate = asyncHandler(async (req, res, next) => {
     req.isAuthenticated = function () {
-        return this.user && this.user.id;
+        return !!(this.user && this.user.id);
     };
 
     const accessToken = req.cookies[ACCESS_TOKEN_COOKIE_NAME];

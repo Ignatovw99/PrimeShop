@@ -3,7 +3,8 @@ import User, { convertToDomainObject } from "../models/User.js";
 const findByCredentials = async (email, password) => {
     const userDocument = await User.findOne({ email });
 
-    if (!(await userDocument.matchPassword(password))) {
+    const isUserFound = userDocument && (await userDocument.matchPassword(password));
+    if (!isUserFound) {
         return null;
     }
 
@@ -15,7 +16,19 @@ const findById = async (id) => {
     return convertToDomainObject(user);
 };
 
+const findByEmail = async (email) => {
+    const user = await User.findOne({ email }).lean();
+    return convertToDomainObject(user);
+};
+
+const create = async (user) => {
+    const createdUser = (await User.create(user)).toObject();
+    return convertToDomainObject(createdUser);
+};
+
 export default {
     findByCredentials,
-    findById
+    findById,
+    findByEmail,
+    create
 };
