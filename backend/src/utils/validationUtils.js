@@ -5,6 +5,10 @@ export const validateData = (validationSchema, obj) => {
         return null;
     }
 
+    if (!validationResult.details) {
+        return validationResult.error.message;
+    }
+
     const validationErrorDetails = validationResult.error.details;
     const firstError = validationErrorDetails.shift();
 
