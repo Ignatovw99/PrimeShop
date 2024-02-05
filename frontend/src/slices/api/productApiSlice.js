@@ -1,6 +1,8 @@
 import apiSlice from "./apiSlice";
 
-import { PRODUCTS_URL, CACHE_UNUSED_API_DATA_SECONDS } from "../../constants";
+import { CACHE_UNUSED_API_DATA_SECONDS } from "../../constants";
+
+const PRODUCTS_URL = "/api/products";
 
 const productApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
