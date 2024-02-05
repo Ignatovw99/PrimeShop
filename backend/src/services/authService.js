@@ -1,12 +1,48 @@
 import ms from "ms";
 
 import userRepository from "../repositories/userRepository.js";
-import { issueJwt } from "../utils/jwtUtils.js";
 
-import { NotFoundError, ServerError } from "../errors.js";
-import { INVALID_CREDENTIALS, ACCESS_TOKEN_CANNOT_BE_ISSUED } from "../messages.js";
+import userValidation from "../validations/userValidation.js";
+import passwordValidator from "../validations/passwordValidator.js";
+
+import { issueJwt } from "../utils/jwtUtils.js";
+import { validateData } from "../utils/validationUtils.js";
 
 import configProperties from "../config/properties.js";
+
+import { InvalidDataError, DuplicateError, NotFoundError, ServerError } from "../errors.js";
+import {
+    USER_ALREADY_EXISTS,
+    INVALID_PASSWORD,
+    PASSWORD_MISMATCH,
+    INVALID_CREDENTIALS,
+    ACCESS_TOKEN_CANNOT_BE_ISSUED
+} from "../messages.js";
+
+const registerUser = async (user) => {
+    const validationError = validateData(userValidation.registerSchema, user);
+    if (validationError) {
+        throw new InvalidDataError(validationError);
+    }
+
+    const { password, confirmPassword } = user;
+    const isPasswordValid = passwordValidator.validate(password);
+
+    if (!isPasswordValid) {
+        throw new InvalidDataError(INVALID_PASSWORD);
+    }
+    if (password !== confirmPassword) {
+        throw new InvalidDataError(PASSWORD_MISMATCH);
+    }
+
+    const existingUser = await userRepository.findByEmail(user.email);
+
+    if (existingUser) {
+        throw new DuplicateError(USER_ALREADY_EXISTS);
+    }
+
+    return await userRepository.create(user);
+};
 
 const getUserByCredentials = async (email, password) => {
     const user = await userRepository.findByCredentials(email, password);
@@ -34,6 +70,7 @@ const issueAccessToken = async (user) => {
 };
 
 export default {
+    registerUser,
     getUserByCredentials,
     issueAccessToken
 };

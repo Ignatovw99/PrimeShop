@@ -31,6 +31,29 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 /**
+ * Register a new user and issue an authentication token.
+ * 
+ * @function
+ * @async
+ * @route POST /api/auth/register
+ * @accesslevel Anonymous
+ * 
+ * @param {object} req - Express request object
+ * @param {object} res - Express response object
+ * 
+ * @throws {Error} Throws an error if user registration fails.
+ * 
+ * @returns {Promise<void>} A Promise that resolves after successful registration process
+ */
+const registerUser = asyncHandler(async (req, res) => {
+    const createdUser = await authService.registerUser(req.body);
+    const { accessToken, expiresInMilliseconds } = await authService.issueAccessToken(createdUser);
+
+    res.httpOnlyCookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, expiresInMilliseconds);
+    res.json(createdUser);
+});
+
+/**
  * Logout a user and clear the access token cookie.
  * 
  * @function
@@ -49,5 +72,6 @@ const logoutUser = (req, res) => {
 
 export default {
     loginUser,
+    registerUser,
     logoutUser
 };
