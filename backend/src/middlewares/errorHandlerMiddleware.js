@@ -21,6 +21,7 @@ const errorTypeHandlers = {
 };
 
 const errorHandler = (err, req, res, next) => {
+    console.error(err);
     const errorHandler = errorTypeHandlers[err.name] || errorTypeHandlers.default;
 
     const { message, status } = errorHandler(err);
