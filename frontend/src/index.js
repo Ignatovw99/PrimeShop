@@ -6,10 +6,13 @@ import {
     Route,
     RouterProvider
 } from 'react-router-dom'
+import { Provider } from 'react-redux';
 
 import App from './App';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
+
+import store from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -28,7 +31,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </React.StrictMode>
 );
 
