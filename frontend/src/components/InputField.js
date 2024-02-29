@@ -2,6 +2,7 @@ import { Form } from "react-bootstrap";
 
 const InputField = ({
     controlId,
+    className,
     label,
     type,
     placeholder,
@@ -10,7 +11,7 @@ const InputField = ({
 }) => {
     return (
         <Form.Group
-            className="my-3"
+            className={className}
             controlId={controlId}
         >
             <Form.Label>{label}</Form.Label>
@@ -22,6 +23,10 @@ const InputField = ({
             />
         </Form.Group>
     );
+};
+
+InputField.defaultProps = {
+    className: "my-3"
 };
 
 export default InputField;
