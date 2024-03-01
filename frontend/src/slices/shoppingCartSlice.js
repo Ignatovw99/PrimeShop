@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { addMissingProperties } from "../utils/common";
+
 import { SHOPPING_CART_SLICE_NAME, SHOPPING_CART_STORAGE_KEY } from "../constants";
 
 const EMPTY_SHOPPING_CART = {
     items: [],
+    shippingAddress: {},
+    paymentMethod: "PayPal",
     itemsPrice: 0,
     shippingPrice: 0,
     taxPrice: 0,
@@ -13,9 +17,14 @@ const EMPTY_SHOPPING_CART = {
 const initializeState = () => {
     const storedShoppingCart = localStorage.getItem(SHOPPING_CART_STORAGE_KEY);
 
-    return storedShoppingCart ?
-        JSON.parse(storedShoppingCart) :
-        EMPTY_SHOPPING_CART;
+    const shoppingCart = storedShoppingCart && JSON.parse(storedShoppingCart);
+
+    if (!shoppingCart) {
+        return EMPTY_SHOPPING_CART;
+    }
+
+    addMissingProperties(shoppingCart, EMPTY_SHOPPING_CART);
+    return shoppingCart;
 };
 
 const calculateCartItemsPrice = (state) => {
@@ -65,11 +74,15 @@ const shoppingCartSlice = createSlice({
             state.items = state.items.filter(cartItem => cartItem.id !== itemId);
 
             updateShoppingCartState(state);
+        },
+        addShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload;
+            updateShoppingCartState(state);
         }
     }
 });
 
-export const { addItemToCart, removeItemFromCart } = shoppingCartSlice.actions;
+export const { addItemToCart, removeItemFromCart, addShippingAddress } = shoppingCartSlice.actions;
 
 export const actionTypes = Object.values(shoppingCartSlice.actions).map(action => action.type);
 
