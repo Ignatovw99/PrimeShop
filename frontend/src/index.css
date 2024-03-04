@@ -42,3 +42,11 @@ a {
     display: block;
     margin: auto;
 }
+
+.cart-badge-header {
+    margin-left: 5px;
+}
+
+.shopping-cart-title {
+    margin-bottom: 20px;
+}

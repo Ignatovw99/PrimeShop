@@ -1,32 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    Route,
-    RouterProvider
-} from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import App from './App';
-import HomePage from './pages/HomePage';
-import ProductPage from './pages/ProductPage';
-
 import store from './store';
+import router from './router';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 import reportWebVitals from './reportWebVitals';
-
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path='/' element={<App />}>
-            <Route index={true} element={<HomePage />} />
-            <Route path="/products/:id" element={<ProductPage />} />
-        </Route>
-    )
-);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
