@@ -5,3 +5,7 @@ export const addMissingProperties = (obj, propertiesObj) => {
         }
     });
 };
+
+export const isArrayEmpty = (array) => {
+    return Array.isArray(array) && array.length === 0;
+};
