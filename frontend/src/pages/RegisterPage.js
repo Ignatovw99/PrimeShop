@@ -8,10 +8,10 @@ import FormContainer from "../components/FormContainer";
 import InputField from "../components/InputField";
 import Loader from "../components/Loader";
 
+import useRedirect from "../hooks/useRedirect";
+
 import { setAuthetnication } from "../slices/authSlice";
 import { useRegisterMutation } from "../slices/api/authApiSlice";
-
-import useRedirect from "../hooks/useRedirect";
 
 const RegisterPage = () => {
     const [user, setUser] = useState({

@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useLogoutMutation } from "../../slices/api/authApiSlice";
 import { clearAuthentication } from "../../slices/authSlice";
 
+import { ROUTES } from "../../router";
+
 const PrivateNavbar = () => {
     const { userProfile } = useSelector(state => state.auth);
 
@@ -19,7 +21,7 @@ const PrivateNavbar = () => {
         try {
             await logout().unwrap();
             dispatch(clearAuthentication());
-            navigate("/login");
+            navigate(ROUTES.LOGIN);
         } catch (error) {
             toast.error(error?.data?.message || error?.error);
         }

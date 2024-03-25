@@ -8,10 +8,12 @@ import FormContainer from "../components/FormContainer";
 import InputField from "../components/InputField";
 import Loader from "../components/Loader";
 
+import useRedirect from "../hooks/useRedirect";
+
 import { setAuthetnication } from "../slices/authSlice";
 import { useLoginMutation } from "../slices/api/authApiSlice";
 
-import useRedirect from "../hooks/useRedirect";
+import { ROUTES } from "../router";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -78,7 +80,7 @@ const LoginPage = () => {
             <Row className="py-3">
                 <Col>
                     New Customer?{" "}
-                    <Link to={`/register?redirect=${redirect}`}>
+                    <Link to={`${ROUTES.REGISTER}?redirect=${redirect}`}>
                         Register
                     </Link>
                 </Col>

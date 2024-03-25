@@ -5,13 +5,15 @@ import { FaShoppingCart } from 'react-icons/fa';
 
 import { getShoppingCartItemsQuantity } from "../../utils/shoppingCartUtils";
 
+import { ROUTES } from "../../router";
+
 const ShoppingCartLink = () => {
     const { items } = useSelector(state => state.shoppingCart);
 
     const cartItemsQuantity = getShoppingCartItemsQuantity(items);
 
     return (
-        <LinkContainer to="/shopping-cart">
+        <LinkContainer to={ROUTES.SHOPPING_CART}>
             <Nav.Link>
                 <FaShoppingCart /> Shopping Cart
                 {cartItemsQuantity > 0 &&

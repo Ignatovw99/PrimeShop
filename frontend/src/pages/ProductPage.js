@@ -8,6 +8,7 @@ import AddToCart from "../components/AddToCart";
 
 import { useGetProductDetailsQuery } from "../slices/api/productApiSlice";
 
+import { ROUTES } from "../router";
 import { PRODUCT_IN_STOCK, PRODUCT_OUT_OF_STOCK } from "../constants";
 
 const ProductPage = () => {
@@ -28,7 +29,7 @@ const ProductPage = () => {
 
     return (
         <>
-            <Link to="/">
+            <Link to={ROUTES.INDEX}>
                 <Button variant="light" className="my-4">
                     Go Back
                 </Button>

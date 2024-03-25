@@ -6,6 +6,8 @@ import ShoppingCartLink from "./ShoppingCartLink";
 import PublicNavbar from "./PublicNavbar";
 import PrivateNavbar from "./PrivateNavbar";
 
+import { ROUTES } from "../../router";
+
 import logo from "../../assets/logo.png";
 
 const Header = () => {
@@ -20,7 +22,7 @@ const Header = () => {
                 collapseOnSelect
             >
                 <Container>
-                    <LinkContainer to="/">
+                    <LinkContainer to={ROUTES.INDEX}>
                         <Navbar.Brand>
                             <img src={logo} alt="PrimeShop's logo" />
                             PrimeShop

@@ -8,11 +8,13 @@ import ShoppingCartItem from "../components/ShoppingCartItem";
 
 import { getShoppingCartItemsQuantity } from "../utils/shoppingCartUtils";
 
+import { ROUTES } from "../router";
+
 const ShoppingCartPage = () => {
     const { itemsPrice, items: cartItems } = useSelector(state => state.shoppingCart);
     const navigate = useNavigate();
 
-    const checkoutHandler = () => navigate("/shipping");
+    const checkoutHandler = () => navigate(ROUTES.SHIPPING);
 
     const isShoppingCartEmpty = cartItems.length === 0;
 
@@ -22,7 +24,7 @@ const ShoppingCartPage = () => {
                 <h1 className="shopping-cart-title">Shopping Cart</h1>
                 {isShoppingCartEmpty ? (
                     <AlertMessage>
-                        Your shopping cart is empty <Link to="/">Go Back</Link>
+                        Your shopping cart is empty <Link to={ROUTES.INDEX}>Go Back</Link>
                     </AlertMessage>
                 ) : (
                     <ListGroup variant="flush">

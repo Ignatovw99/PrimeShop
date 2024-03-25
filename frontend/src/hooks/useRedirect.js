@@ -1,8 +1,9 @@
 import { useLocation } from "react-router-dom";
 
+import { ROUTES } from "../router";
 import { REDIRECT_PARAMETER } from "../constants";
 
-const useRedirect = (defaultRedirect = "/") => {
+const useRedirect = (defaultRedirect = ROUTES.INDEX) => {
     const { search } = useLocation();
 
     const searchParams = new URLSearchParams(search);

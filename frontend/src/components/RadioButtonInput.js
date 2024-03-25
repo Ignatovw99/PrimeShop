@@ -16,6 +16,7 @@ const RadioButtonInput = ({
             <Col>
                 {options.map(option => (
                     <Form.Check
+                        key={option.value}
                         type="radio"
                         className={className}
                         label={option.label}

@@ -7,6 +7,8 @@ import ProductQuantitySelect from "./ProductQuantitySelect";
 
 import { addItemToCart } from "../slices/shoppingCartSlice";
 
+import { ROUTES } from "../router";
+
 const AddToCart = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
 
@@ -15,7 +17,7 @@ const AddToCart = ({ product }) => {
 
     const addToCartHandler = () => {
         dispatch(addItemToCart({ ...product, quantity }));
-        navigate("/shopping-cart");
+        navigate(ROUTES.SHOPPING_CART);
     };
 
     const productInStock = product.availableQuantity > 0;
