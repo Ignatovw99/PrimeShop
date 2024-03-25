@@ -82,6 +82,10 @@ const shoppingCartSlice = createSlice({
         addPaymentMethod: (state, action) => {
             state.paymentMethod = action.payload;
             updateShoppingCartState(state);
+        },
+        clearShoppingCart: (state, action) => {
+            state.items = [];
+            updateShoppingCartState(state);
         }
     }
 });
@@ -90,7 +94,8 @@ export const {
     addItemToCart,
     removeItemFromCart,
     addShippingAddress,
-    addPaymentMethod
+    addPaymentMethod,
+    clearShoppingCart
 } = shoppingCartSlice.actions;
 
 export const actionTypes = Object.values(shoppingCartSlice.actions).map(action => action.type);
