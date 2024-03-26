@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon -r dotenv/config server.js",
+    "migrate": "MONGO_URL=mongodb://localhost:27017/primeshop-db npx migrate-mongo",
     "data:import": "node -r dotenv/config seeder.js",
     "data:destroy": "node -r dotenv/config seeder.js --destroy",
     "cluster": "pm2 start src/server.js -i max"
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
+    "migrate-mongo": "^11.0.0",
     "nodemon": "^3.0.2"
   }
 }
