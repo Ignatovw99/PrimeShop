@@ -1,4 +1,4 @@
-import userRepository from "../repositories/userRepository.js";
+import User from "../models/User.js";
 
 import { objectIdValidation } from "../validations/validationRules.js";
 import { validateData } from "../utils/validationUtils.js";
@@ -12,12 +12,12 @@ const getUserById = async (id) => {
         throw new InvalidDataError(validationError);
     }
 
-    const user = await userRepository.findById(id);
+    const user = await User.findById(id).lean();
     if (!user) {
         throw new NotFoundError(USER_NOT_FOUND);
     }
 
-    return user;
+    return User.toDomainObject(user);
 };
 
 export default {

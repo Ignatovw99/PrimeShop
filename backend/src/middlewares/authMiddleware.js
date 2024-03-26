@@ -1,4 +1,4 @@
-import userRepository from "../repositories/userRepository.js";
+import User from "../models/User.js";
 
 import asyncHandler from "../utils/asyncHandler.js";
 import { verifyJwt } from "../utils/jwtUtils.js";
@@ -20,8 +20,8 @@ export const authenticate = asyncHandler(async (req, res, next) => {
 
     try {
         const decodedToken = await verifyJwt(accessToken);
-        const user = await userRepository.findById(decodedToken.userId);
-        req.user = user;
+        const user = await User.findById(decodedToken.userId).lean();
+        req.user = User.toDomainObject(user);
     } catch (error) {
         res.clearCookie(ACCESS_TOKEN_COOKIE_NAME);
     } finally {

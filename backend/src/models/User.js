@@ -36,23 +36,37 @@ userSchema.pre("save", async function (next) {
     }
 });
 
-userSchema.methods.matchPassword = async function (password) {
-    return await bcrypt.compare(String(password), this.password);
+userSchema.statics.findByEmail = function (email) {
+    return this.findOne({ email });
 };
 
-const User = mongoose.model("User", userSchema);
+userSchema.statics.findByCredentials = async function (email, password) {
+    const userDocument = await this.findByEmail(email);
 
-export const convertToDomainObject = (user) => {
+    if (!(userDocument && (await userDocument.matchPassword(password)))) {
+        return null;
+    }
+
+    return userDocument;
+};
+
+userSchema.statics.toDomainObject = function (user) {
     if (!user) {
         return null;
     }
     const { _id, email, name } = user;
 
     return {
-        id: _id.toString(),
+        id: _id.toHexString(),
         email,
         name
     };
 };
+
+userSchema.methods.matchPassword = function (password) {
+    return bcrypt.compare(String(password), this.password);
+};
+
+const User = mongoose.model("User", userSchema);
 
 export default User;

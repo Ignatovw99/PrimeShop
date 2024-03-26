@@ -1,6 +1,6 @@
 import ms from "ms";
 
-import userRepository from "../repositories/userRepository.js";
+import User from "../models/User.js";
 
 import userValidation from "../validations/userValidation.js";
 import passwordValidator from "../validations/passwordValidator.js";
@@ -35,21 +35,22 @@ const registerUser = async (user) => {
         throw new InvalidDataError(PASSWORD_MISMATCH);
     }
 
-    const existingUser = await userRepository.findByEmail(user.email);
+    const existingUser = await User.findByEmail(user.email).lean();
 
     if (existingUser) {
         throw new DuplicateError(USER_ALREADY_EXISTS);
     }
 
-    return await userRepository.create(user);
+    const registeredUser = (await User.create(user)).toObject()
+    return User.toDomainObject(registeredUser);
 };
 
 const getUserByCredentials = async (email, password) => {
-    const user = await userRepository.findByCredentials(email, password);
+    const user = await User.findByCredentials(email, password);
     if (!user) {
         throw new NotFoundError(INVALID_CREDENTIALS);
     }
-    return user;
+    return User.toDomainObject(user);;
 };
 
 const issueAccessToken = async (user) => {
